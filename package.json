@@ -1,0 +1,17 @@
+{
+  "name": "repo-branches",
+  "version": "0.0.0",
+  "description": "",
+  "main": "cli.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "globby": "^9.0.0",
+    "simple-git": "^1.107.0",
+    "table": "^5.1.1"
+  }
+}
