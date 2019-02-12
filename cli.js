@@ -48,6 +48,7 @@ const { table } = require('table')
     if (ahead) trackingStatus += chalk.red(`${ahead} ahead`)
     if (behind) trackingStatus += chalk.red(ahead ? `/${behind} behind` : `${behind} behind`)
     if (ahead || behind) trackingStatus += chalk.red(` ${trackingBranch}`)
+    else trackingStatus += chalk.green('Up to date')
 
     return [
       path.basename(repo),
