@@ -2,12 +2,9 @@
   "name": "repo-branches",
   "version": "0.0.0",
   "description": "",
-  "main": "cli.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "UNLICENSED",
+  "bin": "cli.js",
+  "author": "Patrik Csak <patrik@csak.email>",
+  "license": "MIT",
   "dependencies": {
     "chalk": "^2.4.2",
     "globby": "^9.0.0",
