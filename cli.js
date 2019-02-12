@@ -16,15 +16,10 @@ const { table } = require('table')
   reposPath = reposPath.replace('~', os.homedir())
 
   const repos = await globby(
-    // TODO: Use CLI arg instead of hard coding
     path.resolve(__dirname, reposPath) + '/*',
     { onlyDirectories: true }
   )
   const rows = repos.map(async repo => {
-    // const { current: currentBranch } = await git(repo).branch()
-    // const status = await git(repo).status()
-
-    // TODO: Fetch
     const gitRepo = git(repo)
     await gitRepo.fetch()
     const repoStatus = await gitRepo.status()
