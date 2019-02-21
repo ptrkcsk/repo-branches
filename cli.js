@@ -21,7 +21,7 @@ const { table } = require('table')
     path.resolve(__dirname, reposPath) + '/*',
     { onlyDirectories: true }
   )
-  const rows = repos.map(async repo => {
+  const repoRows = repos.map(async repo => {
     const gitRepo = git(repo)
     await gitRepo.fetch()
     const repoStatus = await gitRepo.status()
@@ -60,10 +60,18 @@ const { table } = require('table')
     ]
   })
 
-  Promise.all(rows).then(rows => {
-    console.log(table([
-      ['Repo', 'Branch', 'Working Directory', 'Tracking Branch'],
-      ...rows
-    ]))
+  const headerRow = ['Repo', 'Branch', 'Working Directory', 'Tracking Branch']
+    .map(header => chalk.bold(header))
+
+  Promise.all(repoRows).then(repoRows => {
+    console.log(
+      table(
+        [
+          headerRow,
+          ...repoRows
+        ],
+        { columnDefault: { width: 25 } }
+      )
+    )
   })
 })().catch(console.error)
