@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const chalk = require('chalk')
+const program = require('commander')
 const globby = require('globby')
 const os = require('os')
 const path = require('path')
@@ -8,14 +9,18 @@ const git = require('simple-git/promise')
 const { table } = require('table')
 
 ;(async () => {
-  let [, , reposPath] = process.argv
+  program
+    .version('0.0.0', '-v, --version')
+    .option('-f, --fetch', '')
+    .option('--no-fetch', '')
+    .parse(process.argv)
+
+  const reposPath = program.reposPath.replace('~', os.homedir())
 
   if (!reposPath) {
-    console.error(chalk.red('Usage: BIN_NAME_TBD repos-path'))
+    console.error(chalk.red('Usage: repo-branches <repos-path> [--fetch]'))
     process.exit(1)
   }
-
-  reposPath = reposPath.replace('~', os.homedir())
 
   const repos = await globby(
     path.resolve(__dirname, reposPath) + '/*',
