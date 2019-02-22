@@ -23,6 +23,9 @@ const { table } = require('table')
   )
   const repoRows = repos.map(async repo => {
     const gitRepo = git(repo)
+
+    if (!await gitRepo.checkIsRepo()) return null
+
     await gitRepo.fetch()
     const repoStatus = await gitRepo.status()
     const {
@@ -64,6 +67,8 @@ const { table } = require('table')
     .map(header => chalk.bold(header))
 
   Promise.all(repoRows).then(repoRows => {
+    repoRows = repoRows.filter(row => row)
+
     console.log(
       table(
         [
