@@ -11,7 +11,7 @@ const { table } = require('table')
   let [, , reposPath] = process.argv
 
   if (!reposPath) {
-    console.error(chalk.red('Usage: BIN_NAME_TBD repos-path'))
+    console.error(chalk.red('Usage: repo-branches repos-path'))
     process.exit(1)
   }
 
