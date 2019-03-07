@@ -2,11 +2,14 @@
   "name": "repo-branches",
   "version": "0.0.0",
   "description": "",
-  "bin": "cli.js",
+  "bin": {
+    "repo-branches": "./cli.js"
+  },
   "author": "Patrik Csak <patrik@csak.email>",
   "license": "MIT",
   "dependencies": {
     "chalk": "^2.4.2",
+    "commander": "^2.19.0",
     "globby": "^9.0.0",
     "simple-git": "^1.107.0",
     "table": "^5.1.1"

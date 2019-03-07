@@ -1,17 +1,35 @@
 #!/usr/bin/env node
 
-const chalk = require('chalk')
-const globby = require('globby')
 const os = require('os')
 const path = require('path')
+
+const chalk = require('chalk')
+const commander = require('commander')
+const globby = require('globby')
 const git = require('simple-git/promise')
 const { table } = require('table')
 
+const pkg = require('./package.json')
+
 ;(async () => {
-  let [, , reposPath] = process.argv
+  const program = commander
+  let reposPath
+
+  program
+    .name('repo-branches')
+    .version(pkg.version, '-v, --version')
+
+  program
+    .arguments('<repos-path>')
+    .action(path => reposPath = path)
+
+  program
+    .option('-f, --fetch', 'fetch remote refs before checking status', false)
+
+  program.parse(process.argv)
 
   if (!reposPath) {
-    console.error(chalk.red('Usage: repo-branches repos-path'))
+    program.outputHelp(chalk.red)
     process.exit(1)
   }
 
@@ -26,7 +44,8 @@ const { table } = require('table')
 
     if (!await gitRepo.checkIsRepo()) return null
 
-    await gitRepo.fetch()
+    if (program.fetch) await gitRepo.fetch()
+
     const repoStatus = await gitRepo.status()
     const {
       ahead,
